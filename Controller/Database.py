@@ -10,8 +10,4 @@ def is_register(name):
         if(name == regis['name']):
             print("cadastrado")
             return regis['name']
-
-
-
-
-is_register("Joao")
+    

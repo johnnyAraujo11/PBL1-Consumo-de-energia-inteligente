@@ -5,8 +5,9 @@ import os
 dir_abs = os.path.dirname(os.path.realpath(__file__))
 new = dir_abs[:-10]
 new = new + "Model"
+
 sys.path.insert(0, new)
-from routers import *
+from API import *
 
 class Server:
     
@@ -35,18 +36,16 @@ class Server:
                 client, address = self.con_socket.accept()
                 data = client.recv(self.data_payload)
 
-                self.request_type(data.decode('utf-8'))
-
-                resp = "HTTP/1.0 200 OK\n\nHello World"
-                client.sendall(resp.encode())
+                #resp = "HTTP/1.0 200 OK\n\nHello World"
+                response =  self.request_type(data.decode('utf-8'))
+                client.sendall(response.encode())
                 client.close()
         except:
             print("Fail when receive message")
 
     def request_type(self, msg):
         if 'GET' in msg:
-            print(all_requests_get(self.split_msg(msg)))
-            
+            return all_requests_get(self.split_msg(msg))
 
     def split_msg(self,msg):
         client_router = msg.split()
