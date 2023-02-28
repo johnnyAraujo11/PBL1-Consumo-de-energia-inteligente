@@ -1,6 +1,8 @@
 import socket 
 import sys
 import os
+import threading
+
 
 dir_abs = os.path.dirname(os.path.realpath(__file__))
 new = dir_abs[:-10]
@@ -8,6 +10,9 @@ new = new + "Model"
 
 sys.path.insert(0, new)
 from API import *
+
+
+
 
 class Server:
     
@@ -22,6 +27,7 @@ class Server:
             self.con_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.con_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             self.server_address = (self.host, self.port)
+            #self.server_address = ('172.17.0.1', self.port)
             print ("Starting up echo server on:%s port:%s" % self.server_address)
             self.con_socket.bind(self.server_address)
             self.con_socket.listen()
@@ -34,22 +40,35 @@ class Server:
             while True:
                 print ("Waiting to receive message from client")
                 client, address = self.con_socket.accept()
-                data = client.recv(self.data_payload)
-
-                #resp = "HTTP/1.0 200 OK\n\nHello World"
-                response =  self.request_type(data.decode('utf-8'))
-                client.sendall(response.encode())
-                client.close()
+                threading.Thread(target=self.handle_client, args=(client, address)).start()
+               
         except:
             print("Fail when receive message")
+        client.close()   
+
+
+    def handle_client(self, cli, addr):
+        data = cli.recv(self.data_payload)
+        #print(data)
+        #resp = "HTTP/1.0 200 OK\n\nHello World"
+    
+        response =  self.request_type(data.decode('utf-8'))
+        cli.sendall(response.encode())
+
+
 
     def request_type(self, msg):
         if 'GET' in msg:
             return all_requests_get(self.split_msg(msg))
 
+
     def split_msg(self,msg):
         client_router = msg.split()
         return client_router[1]
+
+
+    def handle_client(self, client, addr):
+        print("tes")
         
 
 
