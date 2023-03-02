@@ -12,8 +12,6 @@ sys.path.insert(0, new)
 from API import *
 
 
-
-
 class Server:
     
     def __init__(self, host, port):
@@ -40,21 +38,31 @@ class Server:
             while True:
                 print ("Waiting to receive message from client")
                 client, address = self.con_socket.accept()
-                threading.Thread(target=self.handle_client, args=(client, address)).start()
+                client_thread = threading.Thread(target=self.handle_client, args=(client, address))
+                client_thread.start()
                
         except:
             print("Fail when receive message")
         client.close()   
 
 
-    def handle_client(self, cli, addr):
-        data = cli.recv(self.data_payload)
-        #print(data)
+    def handle_client(self, client, addr):
+        '''
         #resp = "HTTP/1.0 200 OK\n\nHello World"
-    
         response =  self.request_type(data.decode('utf-8'))
         cli.sendall(response.encode())
-
+        '''
+        print("New connection by {}".format(addr))
+        
+        while True:
+            data = client.recv(1024)
+            if not data:
+                break
+            else: 
+                print(data.decode("utf-8"))
+            client.sendall(b'ok')
+        print("Conexão encerrada")
+        client.close()
 
 
     def request_type(self, msg):
@@ -66,12 +74,7 @@ class Server:
         client_router = msg.split()
         return client_router[1]
 
-
-    def handle_client(self, client, addr):
-        print("tes")
-        
-
-
+   
 start_server = Server("localhost", 8080)
 start_server.connect()
 start_server.receive_msg()

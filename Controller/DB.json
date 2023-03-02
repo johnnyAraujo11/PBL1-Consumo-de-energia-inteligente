@@ -1,4 +1,6 @@
 [
-    {"name" : "Joao", "rua":"Avenida Maria Rosa"},
-    {"name" : "Maria",  "rua": "Girassol"}
+    {"med":"001", "name" : "Joao"},
+    {"med":"002", "name" : "Maria"},
+    {"med":"003", "name" : "José"}
+
 ]

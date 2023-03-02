@@ -1,6 +1,7 @@
 
 import os
 import sys
+import json
 
 dir_abs = os.path.dirname(os.path.realpath(__file__))
 new = dir_abs[:-5]
@@ -8,7 +9,7 @@ new = new + "Controller"
 sys.path.insert(0, new)
 
 #from Database import *
-
+from http_res_req import *
 
 def create_arq_http(body):
     return "HTTP/1.0 200 OK\n\n{}".format(body)
@@ -28,6 +29,18 @@ def all_requests_get(router):
         return create_arq_http("Houve uma variação de energia capturado na sua residência.")
     
 
+
+
 def all_request_post(router, content):
     if(router == "/"):
         print("")
+
+
+def openFile():
+    file = open('DB.json',)
+    data = json.load(file)
+    file.close()
+    return data
+
+
+
