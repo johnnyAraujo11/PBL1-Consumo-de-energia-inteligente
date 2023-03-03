@@ -33,7 +33,7 @@ class Server:
             print("Fail when starting the server")
 
 
-    def receive_msg(self):
+    def client_connect(self):
         try:
             while True:
                 print ("Waiting to receive message from client")
@@ -59,22 +59,24 @@ class Server:
             if not data:
                 break
             else: 
-                print(data.decode("utf-8"))
+                #print(data.decode("utf-8"))
+                self.split_msg(data.decode("utf-8"))
             client.sendall(b'ok')
         print("Conexão encerrada")
         client.close()
 
+    def split_msg(self,msg):
+        client_router = msg.split("\n")
+        print("Teste:\n\n")
+        for i in client_router:
+            print(i)
+
 
     def request_type(self, msg):
         if 'GET' in msg:
-            return all_requests_get(self.split_msg(msg))
+            return all_requests_get(self.split_msg(msg)[0])
 
 
-    def split_msg(self,msg):
-        client_router = msg.split()
-        return client_router[1]
-
-   
 start_server = Server("localhost", 8080)
 start_server.connect()
-start_server.receive_msg()
+start_server.client_connect()

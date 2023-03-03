@@ -1,33 +1,16 @@
-class http_msg():
+class http_request():
     
-    def __init__(self, method = None, status = None,host = None, content = None, num_status = None, body = None):
-       self.method = method
-       self.status = status
-       self.host = host
-       self.content = content
-       self.num_status = num_status
-       self.body = body
-
-
-    def request():
+    def __init__(self, msg):
+        self.structure_http = msg
+        self.method
+        self.body
+    
+    def split_structure(self):
         print("request")
+        split_structure = self.structure_http.split("\n")
+        self.method = split_structure[0].split(" ")[0]
 
-    def get_method(self):
-        return self.method
-    
-    def get_status(self):
-        return self.status
-    
-    def get_host(self):
-        return self.host
-    
-    def get_content(self):
-        return self.content
-    
+        for row in split_structure:
+            if(row == ""):
+                print("achei a linha vazia")
 
-    def response(self):
-        print("reponse")
-        return "HTTP/1.0 {} {}\n\n{}".format(self.num_status, self.status, self.body)
-    
-    def request():
-        print("request")
