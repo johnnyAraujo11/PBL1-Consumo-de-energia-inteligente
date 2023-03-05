@@ -9,7 +9,7 @@ new = new + "Controller"
 sys.path.insert(0, new)
 
 #from Database import *
-from http_res_req import *
+from http_req import *
 
 def create_arq_http(body):
     return "HTTP/1.0 200 OK\n\n{}".format(body)

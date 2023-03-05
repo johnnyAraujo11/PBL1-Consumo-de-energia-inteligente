@@ -2,7 +2,7 @@ import socket
 import sys
 import os
 import threading
-
+import http_req
 
 dir_abs = os.path.dirname(os.path.realpath(__file__))
 new = dir_abs[:-10]
@@ -60,16 +60,10 @@ class Server:
                 break
             else: 
                 #print(data.decode("utf-8"))
-                self.split_msg(data.decode("utf-8"))
+                http_req.http_request( data.decode("utf-8"))
             client.sendall(b'ok')
         print("Conexão encerrada")
         client.close()
-
-    def split_msg(self,msg):
-        client_router = msg.split("\n")
-        print("Teste:\n\n")
-        for i in client_router:
-            print(i)
 
 
     def request_type(self, msg):
