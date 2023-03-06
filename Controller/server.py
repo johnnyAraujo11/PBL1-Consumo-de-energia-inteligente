@@ -2,15 +2,17 @@ import socket
 import sys
 import os
 import threading
-import http_req
+import http_req 
+import API
 
+'''
 dir_abs = os.path.dirname(os.path.realpath(__file__))
 new = dir_abs[:-10]
 new = new + "Model"
 
 sys.path.insert(0, new)
 from API import *
-
+'''
 
 class Server:
     
@@ -18,7 +20,7 @@ class Server:
         self.host = host
         self.port = port
         self.data_payload = 2048 
-
+        
 
     def connect(self):
         try:
@@ -34,41 +36,35 @@ class Server:
 
 
     def client_connect(self):
-        try:
             while True:
                 print ("Waiting to receive message from client")
                 client, address = self.con_socket.accept()
-                client_thread = threading.Thread(target=self.handle_client, args=(client, address))
-                client_thread.start()
-               
-        except:
-            print("Fail when receive message")
-        client.close()   
+                #client_thread = threading.Thread(target=self.handle_client, args=(client, address), daemon=True)
+                #client_thread.start()
+                self.handle_client(client, address)
+         
 
 
     def handle_client(self, client, addr):
-        '''
-        #resp = "HTTP/1.0 200 OK\n\nHello World"
-        response =  self.request_type(data.decode('utf-8'))
-        cli.sendall(response.encode())
-        '''
         print("New connection by {}".format(addr))
-        
-        while True:
-            data = client.recv(1024)
-            if not data:
-                break
-            else: 
-                #print(data.decode("utf-8"))
-                http_req.http_request( data.decode("utf-8"))
-            client.sendall(b'ok')
-        print("Conexão encerrada")
-        client.close()
+        data = client.recv(1024)
+        if data:
+            #http_req.http_request(data.decode("utf-8"))
+            resp = b"HTTP/1.0 200 OK\n\nHello World"
+            str_http = http_req.Http_request(data.decode())
+            
+            response = API.all_requests_get("/consumption") if "GET" == str_http.method else  API.all_request_post("/consumption")
+
+            client.send(response.encode('utf-8'))
+            client.close()  
+            
+        print("Close connection")
+
 
 
     def request_type(self, msg):
         if 'GET' in msg:
-            return all_requests_get(self.split_msg(msg)[0])
+            return API.all_requests_get(self.split_msg(msg)[0])
 
 
 start_server = Server("localhost", 8080)

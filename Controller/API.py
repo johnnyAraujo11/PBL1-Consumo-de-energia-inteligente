@@ -17,7 +17,7 @@ def create_arq_http(body):
 
 def all_requests_get(router):
     if(router == "/consumption"):
-       return 
+       return create_arq_http("Seu consumo atual é: %s" % 111)
 
     if(router == "/fatura"):
         return create_arq_http("Sua fatura atual é de R$50,00")
