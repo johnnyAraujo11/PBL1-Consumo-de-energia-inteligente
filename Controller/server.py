@@ -52,7 +52,7 @@ class Server:
             #http_req.http_request(data.decode("utf-8"))
             resp = b"HTTP/1.0 200 OK\n\nHello World"
             str_http = http_req.Http_request(data.decode())
-            
+            print(data.decode())
             response = API.all_requests_get("/consumption") if "GET" == str_http.method else  API.all_request_post("/consumption")
 
             client.send(response.encode('utf-8'))
