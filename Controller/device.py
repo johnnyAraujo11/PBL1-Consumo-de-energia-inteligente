@@ -4,7 +4,7 @@ import threading
 
 class Device():
     
-    def __init__(self) -> None:
+    def __init__(self):
         self.watt = 0 
         self.time = 0
 
@@ -15,15 +15,19 @@ class Device():
             self.time += 1
 
     def get_consumption(self):
-        return self.watt * (self.time/60)
+        return (self.watt * (self.time/60))
     
 
-    def set_wat(self, new_watt):
+    def set_watt(self, new_watt):
         self.watt = new_watt
 
 
-device = Device()
-threading.Thread(target=device.consuming).start()
+    def start(self):
+        device = Device()
+        threading.Thread(target=device.consuming).start()
+
+#device = Device()
+#threading.Thread(target=device.consuming).start()
 
 '''
 while(True):
