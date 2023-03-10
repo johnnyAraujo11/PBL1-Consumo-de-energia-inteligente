@@ -1,7 +1,25 @@
 {
      "001": [
           {
-               "pontecy": "500",
+               "potency": 100,
+               "date": "08/03/2023",
+               "time_on": "500",
+               "hour": "10:00"
+          },
+          {
+               "consumption": 1000,
+               "date": "08/03/2023",
+               "time_on": "500",
+               "hour": "10:00"
+          },
+          {
+               "consumption": 5000,
+               "date": "08/03/2023",
+               "time_on": "500",
+               "hour": "10:00"
+          },
+          {
+               "consumption": 5000,
                "date": "08/03/2023",
                "time_on": "500",
                "hour": "10:00"
