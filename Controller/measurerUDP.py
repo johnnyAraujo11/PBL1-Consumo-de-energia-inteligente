@@ -13,11 +13,10 @@ class MeasurerUDP():
         self.UDP_client = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
         self.buffer_size = 1024
         self.device = device
+        self.id = '001'
 
-    def send_message(self):
-        #msg = '{"id":"001", "pontecy": 100, "date": "08/03/2023", "time_on":"500", "hour":"10:00"}' 
-        
-        msg = {"id":"001", "consumption": device.get_watt(), "date": "08/03/2023", "time_on":"500", "hour":"10:00"}
+    def send_message(self):     
+        msg = {"id": self.id, "consumption": device.get_watt(), "date": "08/03/2023", "time_on": device.time, "hour":"10:00"}
         json_msg = json.dumps(msg)
         
         msg_bytes = str.encode(json_msg)
@@ -26,7 +25,7 @@ class MeasurerUDP():
 
     def time_to_send_message(self):
         while(True):
-            sleep(5)
+            sleep(10)
             self.send_message()
 
 

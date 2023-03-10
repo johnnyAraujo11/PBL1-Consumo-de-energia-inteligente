@@ -3,13 +3,13 @@ import threading
 
 
 class Device():
-    
+
     def __init__(self):
         self.watt = 1000 
         self.time = 0
 
     def consuming(self):
-        print("Casa consumindo energia")
+        print("Casa consumindo energia\n")
         while(True):
             sleep(1)
             self.time += 1
@@ -23,8 +23,7 @@ class Device():
 
 
     def start(self):
-        device = Device()
-        threading.Thread(target=device.consuming).start()
+        threading.Thread(target=self.consuming).start()
 
 #device = Device()
 #threading.Thread(target=device.consuming).start()
