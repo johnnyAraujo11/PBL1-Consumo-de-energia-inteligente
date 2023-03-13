@@ -28,5 +28,7 @@ def is_exit(num_meas, data):
 
 '''
     larsidwireless
+   Porteiner: 
+   usu: tec502
    senha: eunaoseiasenha
 '''

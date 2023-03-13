@@ -3,21 +3,25 @@ import threading
 import socket
 import device
 import json
+from datetime import time, datetime
+import datetime as dt
 
 
 class MeasurerUDP():
 
-    def __init__(self, device, host='localhost', port=5000) -> None:
+    def __init__(self, num_measurer, device, host='localhost', port=5000) -> None:
         self.port = port
         self.host = host
         self.UDP_client = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
         self.buffer_size = 1024
+        self.num_measurer = num_measurer
         self.device = device
+        self.time = 0.0
+
 
     def send_message(self):
-        #msg = '{"id":"001", "pontecy": 100, "date": "08/03/2023", "time_on":"500", "hour":"10:00"}' 
-        
-        msg = {"id":"001", "consumption": device.get_watt(), "date": "08/03/2023", "time_on":"500", "hour":"10:00"}
+        hora = datetime.now()
+        msg = {"id":self.num_measurer, "consumption":  self.consumption(), "date": str(dt.date.today()), "hour": hora.strftime("%H:%M")}
         json_msg = json.dumps(msg)
         
         msg_bytes = str.encode(json_msg)
@@ -25,26 +29,30 @@ class MeasurerUDP():
 
 
     def time_to_send_message(self):
+    
         while(True):
-            sleep(5)
-            self.send_message()
+            sleep(1)
+            self.time += 1
+            if(self.time == 2):
+                self.send_message()
+                self.time = 0
 
 
     def start(self):
         threading.Thread(target=self.time_to_send_message, daemon=True).start()
-        t = 0
         #somente para executar a thread em segundo plano
         while(True):
-            device.watt = int(input("O consumo atual é x digite a potência para alterar o consumo: "))
+            device.watt = float(input("O consumo atual é x digite a potência para alterar o consumo: "))
             
-            sleep(1)
-            t += 1
-            print(t)
+    
+    def consumption(self):
+        return round((self.time / 3600) * device.watt, 2)
+
+
 
 device = device.Device()
-device.start()
 
-measurer = MeasurerUDP(device)
+measurer = MeasurerUDP("001", device)
 measurer.start()
 
  

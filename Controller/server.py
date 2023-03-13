@@ -3,7 +3,7 @@ import sys
 import os
 import threading
 import http_req 
-import API
+import api
 import msg_measurer
 
 
@@ -65,9 +65,10 @@ class Server:
     def handle_client_TCP(self, client, addr):
         print("New connection by {}".format(addr))
         data = client.recv(1024)
+        #print(data.decode())
         if data:
-            str_http = http_req.Http_request(data.decode())
-            response = API.all_requests_get("/consumption") if "GET" == str_http.method else  API.all_request_post("/consumption")
+            _api = api.API(data.decode())
+            response = _api.response()
             client.send(response.encode('utf-8'))
             client.close()  
             
