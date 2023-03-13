@@ -3,7 +3,9 @@ import sys
 import os
 import threading
 import http_req 
-import API
+import api
+import msg_measurer
+
 
 '''
 dir_abs = os.path.dirname(os.path.realpath(__file__))
@@ -48,8 +50,8 @@ class Server:
             #address = bytesAddressPair[1]
             clientMsg = "Message from Client:{}".format(message)
             #clientIP  = "Client IP Address:{}".format(address)
-            
             print(clientMsg)
+            msg_measurer.save_json(message.decode())
             
 
     def client_connect_TCP(self):
@@ -63,15 +65,14 @@ class Server:
     def handle_client_TCP(self, client, addr):
         print("New connection by {}".format(addr))
         data = client.recv(1024)
+        #print(data.decode())
         if data:
-            str_http = http_req.Http_request(data.decode())
-            response = API.all_requests_get("/consumption") if "GET" == str_http.method else  API.all_request_post("/consumption")
+            _api = api.API(data.decode())
+            response = _api.response()
             client.send(response.encode('utf-8'))
             client.close()  
             
         print("Close connection")
-
-
 
 
 start_server = Server()
