@@ -2,7 +2,6 @@ import json
 
 
 def save_json(msg):
-    #msg = json.loads('{"id":"001","pontecy":"800", "date": "08/03/2023", "time_on":"500", "hour":"10:00"}')
     msg = json.loads(msg)
     num_measurer = msg.get("id")
 
