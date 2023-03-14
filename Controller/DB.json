@@ -1,16 +1,16 @@
 [{
         "med": "001",
-        "name": "Joao",
+        "name": "joao",
         "password": "1234"
     },
     {
         "med": "002",
-        "name": "Maria",
+        "name": "maria",
         "password": "1234l"
     },
     {
         "med": "003",
-        "name": "Jose",
+        "name": "jose",
         "password": "1234qw"
     }
 

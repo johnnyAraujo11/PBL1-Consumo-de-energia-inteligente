@@ -70,10 +70,13 @@ class Http_request():
         list_l = user.split(":")
         return list_l
     
+
+    def get_user_name(self):
+        return self.decode_user()[0]
     
+
     def check_user_exist(self):
         users = file.read("./Controller/DB.json")
-        self.decode_user()
         data_user = self.decode_user()
 
         for json_obj in users:

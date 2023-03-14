@@ -1,9 +1,9 @@
-
 import os
 import sys
 import json
 import http_req
 import calculate_req
+from datetime import datetime
 
 dir_abs = os.path.dirname(os.path.realpath(__file__))
 new = dir_abs[:-5]
@@ -26,8 +26,11 @@ class API():
 
     def all_requests_get(self, router):
         if(router == "/consumption"):
-            calculate_req.consumption(self.str_http)
-            return self.create_arq_http("Seu consumo atual é: %s" % 111)
+            total_cons = calculate_req.consumption(self.str_http)
+            
+            _date = self.str_http.get_info_date()
+        
+            return self.create_arq_http("O consumo total entre as datas {} e {} foi de {}".format(_date[0], _date[1], total_cons))
       
         if(router == "/fatura"):
             return self.create_arq_http("Sua fatura atual é de R$50,00")
