@@ -1,34 +1,12 @@
 {
      "001": [{
-               "consumption": 0.56,
-               "date": "2023-03-13",
-               "hour": "13:41"
+               "consumption": 1.39,
+               "date_hour": "13/03/2023 21:10"
           },
           {
-               "consumption": 0.56,
-               "date": "2023-03-13",
-               "hour": "13:41"
-          },
-          {
-               "consumption": 0.56,
-               "date": "2023-03-13",
-               "hour": "13:41"
+               "consumption": 1.39,
+               "date_hour": "13/03/2023 21:10"
           }
      ],
-     "002": [{
-               "consumption": 0.56,
-               "date": "2023-03-11",
-               "hour": "17:44"
-          },
-          {
-               "consumption": 0.56,
-               "date": "2023-03-13",
-               "hour": "13:41"
-          },
-          {
-               "consumption": 0.56,
-               "date": "2023-03-13",
-               "hour": "13:41"
-          }
-     ]
+     "002": []
 }

@@ -4,7 +4,7 @@ import socket
 import device
 import json
 from datetime import time, datetime
-import datetime as dt
+
 
 
 class MeasurerUDP():
@@ -19,9 +19,11 @@ class MeasurerUDP():
         self.time = 0.0
 
 
+
     def send_message(self):
-        hora = datetime.now()
-        msg = {"id":self.num_measurer, "consumption":  self.consumption(), "date": str(dt.date.today()), "hour": hora.strftime("%H:%M")}
+        _date = datetime.now()
+
+        msg = {"id":self.num_measurer, "consumption":  self.consumption(), "date_hour": _date.strftime("%d/%m/%Y %H:%M")}
         json_msg = json.dumps(msg)
         
         msg_bytes = str.encode(json_msg)
@@ -33,7 +35,7 @@ class MeasurerUDP():
         while(True):
             sleep(1)
             self.time += 1
-            if(self.time == 2):
+            if(self.time == 5):
                 self.send_message()
                 self.time = 0
 
