@@ -1,18 +1,18 @@
-from datetime import time, datetime
-import datetime as dt
+from datetime import datetime
+
+# current date and time
+now = datetime.now()
 
 
-h1= datetime.now()
-h2 = time(17,00,50)
-#print(h1.hour, h1.minute)
+s1 = now.strftime("%m/%d/%Y")
 
 
-h3 = datetime.strptime("12", "%H")
-h4 = datetime.strptime("15", "%H")
-#print(str(h2.hour) - str(h1.hour))
+
+data_ = '01/03/2018 12:00'
+data2 = '01/03/2018 12:05'
+
+dh = datetime.strptime(data_, '%d/%m/%Y %H:%M')
+dh2 = datetime.strptime(data2, '%d/%m/%Y %H:%M')
 
 
-d = dt.date.today()
-
-
-print(type(str(d)))
+print(dh < dh2)

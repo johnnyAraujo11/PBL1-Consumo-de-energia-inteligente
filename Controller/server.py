@@ -67,6 +67,7 @@ class Server:
         data = client.recv(1024)
         #print(data.decode())
         if data:
+            
             _api = api.API(data.decode())
             response = _api.response()
             client.send(response.encode('utf-8'))
@@ -78,6 +79,6 @@ class Server:
 start_server = Server()
 start_server.connect()
 
-# Criando duas threads para executar os tipos de conexões(TCP e UDP)
+# Criando duas threads para executar os tipos de conexões(TCP e UDP)    
 serverTCP = threading.Thread(target=start_server.client_connect_TCP).start()
 serverUDP = threading.Thread(target=start_server.client_connect_UDP).start()

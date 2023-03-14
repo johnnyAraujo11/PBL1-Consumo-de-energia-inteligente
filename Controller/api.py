@@ -3,7 +3,7 @@ import os
 import sys
 import json
 import http_req
-
+import calculate_req
 
 dir_abs = os.path.dirname(os.path.realpath(__file__))
 new = dir_abs[:-5]
@@ -26,6 +26,7 @@ class API():
 
     def all_requests_get(self, router):
         if(router == "/consumption"):
+            calculate_req.consumption(self.str_http)
             return self.create_arq_http("Seu consumo atual é: %s" % 111)
       
         if(router == "/fatura"):
@@ -38,7 +39,11 @@ class API():
             return self.create_arq_http("Houve uma variação de energia capturado na sua residência.")
      
     def response(self):
-         return self.all_requests_get(self.str_http.router) if "GET" == self.str_http.method else self.all_request_post(self.str_http.router)
+        
+        if(self.str_http.check_user_exist()):
+            return self.all_requests_get(self.str_http.router) if "GET" == self.str_http.method else self.all_request_post(self.str_http.router)
+        else:
+            return self.create_arq_http("Você não está cadastrado")
 
     def all_request_post(self, router, content):
         if(router == "/"):
@@ -50,8 +55,6 @@ class API():
         data = json.load(file)
         file.close()
         return data
-
-
 
 
 #str_http.get_info_date()

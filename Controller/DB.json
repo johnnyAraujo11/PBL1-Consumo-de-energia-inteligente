@@ -1,6 +1,17 @@
-[
-    {"med":"001", "name" : "Joao"},
-    {"med":"002", "name" : "Maria"},
-    {"med":"003", "name" : "José"}
+[{
+        "med": "001",
+        "name": "Joao",
+        "password": "1234"
+    },
+    {
+        "med": "002",
+        "name": "Maria",
+        "password": "1234l"
+    },
+    {
+        "med": "003",
+        "name": "Jose",
+        "password": "1234qw"
+    }
 
 ]
