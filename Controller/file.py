@@ -6,9 +6,9 @@ def read(_path):
         data = json.load(r_json)
         return data
       
-def write():
-    with open("./Controller/DB_consumption.json", 'w') as json_file:
-        #json.dump(data, json_file, indent=5)
+def write(data, _path):
+    with open(_path, 'w') as json_file:
+        json.dump(data, json_file, indent=5)
         print("escrevendo")
 
 

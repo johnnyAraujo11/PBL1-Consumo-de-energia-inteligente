@@ -76,7 +76,7 @@ class Http_request():
     
 
     def check_user_exist(self):
-        users = file.read("./Controller/DB.json")
+        users = file.read("./Controller/Database/DB.json")
         data_user = self.decode_user()
 
         for json_obj in users:
