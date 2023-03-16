@@ -19,7 +19,6 @@ class MeasurerUDP():
         self.time = 0.0
 
 
-
     def send_message(self):
         _date = datetime.now()
 
@@ -53,7 +52,6 @@ class MeasurerUDP():
 
 
 device = device.Device()
-
 measurer = MeasurerUDP("6088", device)
 measurer.start()
 

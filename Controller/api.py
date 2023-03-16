@@ -33,13 +33,13 @@ class API():
         if(router == "/register-client"):
             client = self.str_http.decode_user()
             calculate_req.register_client(client[0], client[1])
-
             return self.create_arq_http("Cadastrado com sucesso!")
         
         if(router == "/adm/registers"):
             return self.create_arq_http("Os usuários cadastrados")
         
         if(router == "/fatura"):
+            
             return self.create_arq_http("Sua fatura atual é de R$50,00")
 
         if(router == "/warning/excessive/energy"):
