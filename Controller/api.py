@@ -27,11 +27,18 @@ class API():
     def all_requests_get(self, router):
         if(router == "/consumption"):
             total_cons = calculate_req.consumption(self.str_http)
-            
             _date = self.str_http.get_info_date()
-        
             return self.create_arq_http("O consumo total entre as datas {} e {} foi de {}".format(_date[0], _date[1], total_cons))
-      
+       
+        if(router == "/register-client"):
+            client = self.str_http.decode_user()
+            calculate_req.register_client(client[0], client[1])
+
+            return self.create_arq_http("Cadastrado com sucesso!")
+        
+        if(router == "/adm/registers"):
+            return self.create_arq_http("Os usuários cadastrados")
+        
         if(router == "/fatura"):
             return self.create_arq_http("Sua fatura atual é de R$50,00")
 
@@ -41,9 +48,9 @@ class API():
         if(router == "/warning/variation/energy"):
             return self.create_arq_http("Houve uma variação de energia capturado na sua residência.")
      
+
     def response(self):
-        
-        if(self.str_http.check_user_exist()):
+        if(self.str_http.check_user_exist() and self.str_http.router !="/register-client" or self.str_http.router != "/adm/registers"):
             return self.all_requests_get(self.str_http.router) if "GET" == self.str_http.method else self.all_request_post(self.str_http.router)
         else:
             return self.create_arq_http("Você não está cadastrado")

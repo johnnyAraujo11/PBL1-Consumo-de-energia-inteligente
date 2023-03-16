@@ -36,8 +36,10 @@ class Server:
 
             self.UDPServerSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
             self.UDPServerSocket.bind((self.host, self.port_UDP))
-
             print ("Starting up echo server TCP on:{} port:{}\nStarting up echo server UDP on:{} port:{}".format(self.host,self.port_TCP, self.host, self.port_UDP))
+            # Criando duas threads para executar os tipos de conexões(TCP e UDP)    
+            serverTCP = threading.Thread(target=self.client_connect_TCP).start()
+            serverUDP = threading.Thread(target=self.client_connect_UDP).start()
         except:
             print("Fail when starting the server")
 
@@ -67,7 +69,6 @@ class Server:
         data = client.recv(1024)
         #print(data.decode())
         if data:
-            
             _api = api.API(data.decode())
             response = _api.response()
             client.send(response.encode('utf-8'))
@@ -75,10 +76,7 @@ class Server:
             
         print("Close connection")
 
+    
+'''start_server = Server()
+start_server.connect()'''
 
-start_server = Server()
-start_server.connect()
-
-# Criando duas threads para executar os tipos de conexões(TCP e UDP)    
-serverTCP = threading.Thread(target=start_server.client_connect_TCP).start()
-serverUDP = threading.Thread(target=start_server.client_connect_UDP).start()

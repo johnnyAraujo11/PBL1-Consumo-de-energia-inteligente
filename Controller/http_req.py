@@ -76,10 +76,11 @@ class Http_request():
     
 
     def check_user_exist(self):
-        users = file.read("./Controller/Database/DB.json")
+        users = file.read("./Database/DB_users.json")
         data_user = self.decode_user()
-
-        for json_obj in users:
-            return True if json_obj.get("name") == data_user[0] and json_obj.get("password") == data_user[1] else False 
-                
+        if(users != 0):
+            for json_obj in users:
+                return True if json_obj.get("name") == data_user[0] and json_obj.get("password") == data_user[1] else False 
+        else:
+            return False       
                 

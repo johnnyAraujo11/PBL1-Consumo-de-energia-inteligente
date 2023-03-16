@@ -5,7 +5,7 @@ def save_json(msg):
     msg = json.loads(msg)
     num_measurer = msg.get("id")
 
-    data = file.read("./Controller/Database/DB_consumption.json")
+    data = file.read("./Database/DB_consumption.json")
     
 
     if(is_exit(num_measurer, data)):
@@ -14,7 +14,7 @@ def save_json(msg):
         meas_list.append(msg)
         data[num_measurer] = meas_list
     
-    file.write(data, "./Controller/Database/DB_consumption.json" )
+    file.write(data, "./Database/DB_consumption.json" )
           
 
 
