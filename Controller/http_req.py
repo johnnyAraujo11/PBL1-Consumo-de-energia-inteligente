@@ -70,13 +70,17 @@ class Http_request():
         list_l = user.split(":")
         return list_l
     
-    
-    def check_user_exist(self):
-        users = file.read("./Controller/DB.json")
-        self.decode_user()
-        data_user = self.decode_user()
 
-        for json_obj in users:
-            return True if json_obj.get("name") == data_user[0] and json_obj.get("password") == data_user[1] else False 
-                
+    def get_user_name(self):
+        return self.decode_user()[0]
+    
+
+    def check_user_exist(self):
+        users = file.read("./Database/DB_users.json")
+        data_user = self.decode_user()
+        if(users != 0):
+            for json_obj in users:
+                return True if json_obj.get("name") == data_user[0] and json_obj.get("password") == data_user[1] else False 
+        else:
+            return False       
                 
