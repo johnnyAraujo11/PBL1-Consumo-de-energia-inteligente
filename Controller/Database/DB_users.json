@@ -3,5 +3,10 @@
           "name": "joao",
           "password": "1234",
           "med": "3960"
+     },
+     {
+          "name": "maria",
+          "password": "123b",
+          "med": "9457"
      }
 ]
