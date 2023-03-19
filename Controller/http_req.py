@@ -1,5 +1,8 @@
 import base64
 import file
+import variables as var
+
+
 
 class Http_request():
     
@@ -76,11 +79,12 @@ class Http_request():
     
 
     def check_user_exist(self):
-        users = file.read("./Database/DB_users.json")
+        users = file.read(var.PATH_USERS)
         data_user = self.decode_user()
         if(users != 0):
             for json_obj in users:
                 return True if json_obj.get("name") == data_user[0] and json_obj.get("password") == data_user[1] else False 
         else:
             return False       
-                
+    
+   
