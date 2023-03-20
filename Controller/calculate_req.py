@@ -34,7 +34,7 @@ def get_num_measurer(user_name):
 def register_client(_name, _password):
     data = file.read(var.PATH_USERS)
     num_med = create_id_measurer()
-    user = {'name':_name, "password":_password, "med":num_med, "last_measurement": "05/02/2023"}
+    user = {'name':_name, "password":_password, "med":num_med, "last_measurement": "05/02/2023", "register_moth": []}
     data.append(user)
     file.write(data, var.PATH_USERS)
 
@@ -83,21 +83,46 @@ def calculate_invoice(str_http):
     invoice_moth()
 
 
-'''Calcula automáticamente a fatura do mês'''
+'''Calcula automaticamente a fatura do mês'''
 def invoice_moth():
     data_meas = file.read(var.PATH_DATA_MEASURE)
     data_users = file.read(var.PATH_USERS)
     current = datetime.now()
-    
-    for i in range(len(data_users)):
-        l_measurement = datetime.strptime(data_users[i].get("last_measurement"), '%d/%m/%Y')
-        #if((l_measurement - current) == 30):
-        print(abs((l_measurement - current).days)) #diferenca de dias para realizar a fatura
-       
+    previus_day = datetime.strptime(file.read(var.PATH_READING_DAY).get("day_reading"), '%d/%m/%Y')
+   
+    if((current - previus_day).days >= 1):
+        for i in range(len(data_users)):
+            l_measurement = datetime.strptime(data_users[i].get("last_measurement"), '%d/%m/%Y')
+            if((current - l_measurement).days == 30):
+                print("é trinta")
 
+    #terminar depois
+
+
+def warning(str_http): 
+    print("warning: ")
+    data_meas = file.read(var.PATH_DATA_MEASURE)
+    data_users = file.read(var.PATH_USERS)
+    name_client = str_http.get_user_name()
+    num_meas = ''
+    for i in range(len(data_users)):
+        if(data_users[i].get("name") == name_client):
+            num_meas = data_users[i].get("med")
+            break
+    
+    list_data_meas = file.read(var.PATH_DATA_MEASURE).get(num_meas)
+    for i in range(7):
+        
+
+   
+
+
+
+
+'''
 def create_date():
     t = 10
     date_ = datetime.now()
     new_date = date_.replace(day=t,hour=0,minute=0,second=0)
     print(new_date)
-
+'''

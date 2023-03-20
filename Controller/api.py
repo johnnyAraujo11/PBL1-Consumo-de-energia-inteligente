@@ -42,7 +42,8 @@ class API():
             calculate_req.calculate_invoice(self.str_http)
             return self.create_arq_http("Sua fatura atual é de R$50,00")
 
-        if(router == "/warning/excessive/energy"):
+        if(router == "/warning"):
+            calculate_req.warning(self.str_http)
             return self.create_arq_http("Você tem um alerta de consumo excessivo.")
         
         if(router == "/warning/variation/energy"):

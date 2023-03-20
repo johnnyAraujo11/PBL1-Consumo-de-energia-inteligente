@@ -1,14 +1,15 @@
-[
-     {
+[{
           "name": "joao",
           "password": "1234",
           "med": "7024",
-          "last_measurement": "18/02/2023"
+          "last_measurement": "17/02/2023",
+          "register_moth": []
      },
      {
           "name": "maria",
           "password": "123b",
           "med": "5655",
-          "last_measurement": "18/02/2023"
+          "last_measurement": "17/02/2023",
+          "register_moth": []
      }
 ]
