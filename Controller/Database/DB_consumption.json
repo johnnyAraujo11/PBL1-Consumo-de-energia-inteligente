@@ -1,66 +1,74 @@
 {
-     "7024": [{
-          "consumption": 0.39,
-          "date_hour": "12/03/2023 22:29"
-     },
-     {
-          "consumption": 0.25,
-          "date_hour": "11/03/2023 22:29"
-     },
-     {
-          "consumption": 0.17,
-          "date_hour": "16/03/2023 22:29"
-     },
-     {
-          "consumption": 0.86,
-          "date_hour": "16/03/2023 22:29"
-     },
-     {
-          "consumption": 0.28,
-          "date_hour": "16/03/2023 22:29"
-     },
-     {
-          "consumption": 0.42,
-          "date_hour": "16/03/2023 22:29"
-     },
-     {
-          "consumption": 0.63,
-          "date_hour": "16/03/2023 22:29"
-     },
-     {
-          "consumption": 2,
-          "date_hour": "20/03/2023 08:29"
-     }],
-     "5655": [{
-          "consumption": 1.39,
-          "date_hour": "16/03/2023 15:31"
-     },
-     {
-          "consumption": 1.11,
-          "date_hour": "16/03/2023 19:31"
-     },
-     {
-          "consumption": 1.7,
-          "date_hour": "16/03/2023 05:00"
-     },
-     {
-          "consumption": 0.69,
-          "date_hour": "16/03/2023 13:30"
-     },
-     {
-          "consumption": 0.1,
-          "date_hour": "16/03/2023 22:31"
-     },
-     {
-          "consumption": 0.08,
-          "date_hour": "16/03/2023 22:31"
-     },
-     {
-          "consumption": 0.2,
-          "date_hour": "19/03/2023 09:31"
-     },
-     {
-          "consumption": 1.63,
-          "date_hour": "20/03/2023 08:29"
-     }]
+     "7024": [
+          {
+               "consumption": 0.39,
+               "date_hour": "12/03/2023 22:29"
+          },
+          {
+               "consumption": 0.25,
+               "date_hour": "11/03/2023 22:29"
+          },
+          {
+               "consumption": 0.17,
+               "date_hour": "16/03/2023 22:29"
+          },
+          {
+               "consumption": 0.86,
+               "date_hour": "16/03/2023 22:29"
+          },
+          {
+               "consumption": 0.28,
+               "date_hour": "16/03/2023 22:29"
+          },
+          {
+               "consumption": 0.42,
+               "date_hour": "16/03/2023 22:29"
+          },
+          {
+               "consumption": 0.63,
+               "date_hour": "16/03/2023 22:29"
+          },
+          {
+               "consumption": 2,
+               "date_hour": "20/03/2023 08:29"
+          }
+     ],
+     "5655": [
+          {
+               "consumption": 1.39,
+               "date_hour": "16/03/2023 15:31"
+          },
+          {
+               "consumption": 1.11,
+               "date_hour": "16/03/2023 19:31"
+          },
+          {
+               "consumption": 1.7,
+               "date_hour": "16/03/2023 05:00"
+          },
+          {
+               "consumption": 0.69,
+               "date_hour": "16/03/2023 13:30"
+          },
+          {
+               "consumption": 0.1,
+               "date_hour": "16/03/2023 22:31"
+          },
+          {
+               "consumption": 0.08,
+               "date_hour": "16/03/2023 22:31"
+          },
+          {
+               "consumption": 0.2,
+               "date_hour": "19/03/2023 09:31"
+          },
+          {
+               "consumption": 1.63,
+               "date_hour": "20/03/2023 08:29"
+          }
+     ],
+     "6826": [],
+     "6973": [],
+     "4209": [],
+     "1450": []
 }

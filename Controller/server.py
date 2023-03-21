@@ -1,20 +1,9 @@
 import socket 
-import sys
-import os
 import threading
 import http_req 
 import api
 import msg_measurer
 
-
-'''
-dir_abs = os.path.dirname(os.path.realpath(__file__))
-new = dir_abs[:-10]
-new = new + "Model"
-
-sys.path.insert(0, new)
-from API import *
-'''
 
 class Server:
     
@@ -38,24 +27,26 @@ class Server:
             self.UDPServerSocket.bind((self.host, self.port_UDP))
             print ("Starting up echo server TCP on:{} port:{}\nStarting up echo server UDP on:{} port:{}".format(self.host,self.port_TCP, self.host, self.port_UDP))
             # Criando duas threads para executar os tipos de conexões(TCP e UDP)    
-            serverTCP = threading.Thread(target=self.client_connect_TCP).start()
-            serverUDP = threading.Thread(target=self.client_connect_UDP).start()
+            threading.Thread(target=self.client_connect_TCP).start()
+            threading.Thread(target=self.client_connect_UDP).start()
         except:
             print("Fail when starting the server")
 
-
+    '''
+    Função que aguarda os medidores enviarem dados e salva em um arquivo json.
+    '''
     def client_connect_UDP(self):
         while(True):
             print("waiting message from measurer")
             bytesAddressPair = self.UDPServerSocket.recvfrom(self.data_payload)
             message = bytesAddressPair[0]
-            #address = bytesAddressPair[1]
             clientMsg = "Message from Client:{}".format(message)
-            #clientIP  = "Client IP Address:{}".format(address)
             print(clientMsg)
             msg_measurer.save_json(message.decode())
             
-
+    '''
+    Função que aguarda a conexão de clientes.
+    '''
     def client_connect_TCP(self):
             while True:
                 print ("Waiting to receive message from client")
@@ -63,20 +54,17 @@ class Server:
                 client_thread = threading.Thread(target=self.handle_client_TCP, args=(client, address), daemon=True)
                 client_thread.start()
                 
-
+    '''
+    Recebe clientes e suas respectivas mensagens http
+    '''
     def handle_client_TCP(self, client, addr):
         print("New connection by {}".format(addr))
         data = client.recv(1024)
-        #print(data.decode())
         if data:
             _api = api.API(data.decode())
             response = _api.response()
             client.send(response.encode('utf-8'))
             client.close()  
-            
         print("Close connection")
 
-    
-'''start_server = Server()
-start_server.connect()'''
 

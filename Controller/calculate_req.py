@@ -3,9 +3,25 @@ import random
 from datetime import datetime, timedelta
 import variables as var
 from time import sleep
-
+import json
 PRICE_PER_KWH = 0.35
 
+
+'''
+Realizar o cadastro de um cliente
+'''
+def register_client(str_http):
+    obj_json = json.loads(str_http.body)
+    data = file.read(var.PATH_USERS)
+    num_med = create_id_measurer()
+    user = {'name':obj_json.get("name"), "password":obj_json.get("password"), "med":num_med, "last_measurement": "05/02/2023", "register_moth": []}
+    data.append(user)
+    file.write(data, var.PATH_USERS)
+
+
+'''
+Realiza o cálculo do consumo em um intevalo especificado
+'''
 def consumption(str_http):
     date = str_http.get_info_date()
     date_i = datetime.strptime(date[0], '%d/%m/%Y %H:%M')
@@ -31,14 +47,10 @@ def get_num_measurer(user_name):
             return users[i].get("med")
 
 
-def register_client(_name, _password):
-    data = file.read(var.PATH_USERS)
-    num_med = create_id_measurer()
-    user = {'name':_name, "password":_password, "med":num_med, "last_measurement": "05/02/2023", "register_moth": []}
-    data.append(user)
-    file.write(data, var.PATH_USERS)
 
-
+'''
+Cria um número aleatório adicionar como identificador de um medidor.
+'''
 def create_id_measurer():
     data = file.read(var.PATH_DATA_MEASURE)
     num = str(random.randrange(0,10000))
@@ -48,7 +60,9 @@ def create_id_measurer():
     add_measurer(num)
     return num
 
-
+'''
+Adicionar o número gerado de um medido em um arquivo json.
+'''
 def add_measurer(num):
    data = file.read(var.PATH_DATA_MEASURE) 
    data[num] = []
@@ -56,10 +70,11 @@ def add_measurer(num):
    
 
 '''
-Realiza o calculo da fatura desde a útima leitura até o tempo corrente.
+Realiza o cálculo da fatura desde a útima leitura até o tempo corrente.
+@str_http recebe a classe que representa a string http da requisção, podendo ser extraídas algumas informações 
+para realizar a execução da função, como nesse caso, obter o nome do cliente logado.
 '''
 def calculate_invoice_partial(str_http): 
-    closure = "10" 
     data_meas = file.read(var.PATH_DATA_MEASURE)
     data_users = file.read(var.PATH_USERS)
     name_client = str_http.get_user_name()
@@ -80,11 +95,11 @@ def calculate_invoice_partial(str_http):
             total_kwh += list_data_meas[i].get("consumption")
 
     price_total = total_kwh * PRICE_PER_KWH
-    return str_invoice(name_client, price_total, total_kwh)
+    return str_invoice(price_total, name_client,  total_kwh)
 
 
 def str_invoice(price, name, t_kwh):
-    return "======= Fatura parcial =======\nNome: {}\nPreço: {}\nTotal cosumido em kwh: {}".format(name, price, t_kwh)
+    return "======= Fatura parcial =======\nNome: {}\nPreço: {}\nTotal cosumido: {}kwh".format(name, price, t_kwh)
 
 
 '''Calcula automaticamente a fatura do mês'''
@@ -106,13 +121,13 @@ def invoice_moth():
                         date_meas = datetime.strptime(list_data_meas[j].get("date_hour"), '%d/%m/%Y %H:%M')
                         if(date_meas >= l_measurement and date_meas <= temp_date):
                             total += list_data_meas[j].get("consumption")    
-                    create_str_invoice(data_users[i], data_users[i].get("name"), total, l_measurement, temp_date)
+                    create_obj_invoice(data_users[i], data_users[i].get("name"), total, l_measurement, temp_date)
                     total = 0
 
         file.write(data_users, var.PATH_USERS)
 
-
-def create_str_invoice(data_users, name, total, data_l_measurement, date_final):
+'''Cria um obj no formato json e adicionar as informações da fatura ao cliente.'''
+def create_obj_invoice(data_users, name, total, data_l_measurement, date_final):
     obj_json = {"nome":name,
                 "Preco": round(total * PRICE_PER_KWH, 2),
                 "ultima leitura":datetime.strftime(data_l_measurement, '%d/%m/%Y'),
@@ -120,7 +135,9 @@ def create_str_invoice(data_users, name, total, data_l_measurement, date_final):
     data_users.get("register_moth").append(obj_json)
    
 
-
+'''
+Realiza  média dos n últimos dias, verificando se no dia corrente o consumo de energia do cliente está em excesso.
+'''
 def warning(str_http): 
     n = 7
     data_users = file.read(var.PATH_USERS)
@@ -152,6 +169,8 @@ def warning(str_http):
     else:
         return "Não há consumo excessivo registrado."
 
-
+'''
+Faz o cálculo da média de n dias
+'''
 def calculare_average(total, n):
     return (total / n) 

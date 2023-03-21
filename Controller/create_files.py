@@ -2,6 +2,11 @@ import json
 import file
 import os
 
+
+'''
+Cria os arquivos json para realizar o armazenamento dos dados dos cliente e dos medidores
+quando iniciar o sistema caso os arquivos não existam.
+'''
 def create_files(data, name_file):
     _path = "./Database/{}.json".format(name_file)
     if not os.path.exists(_path):        
