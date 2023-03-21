@@ -114,7 +114,7 @@ def invoice_moth():
             for i in range(len(data_users)):
                 l_measurement = datetime.strptime(data_users[i].get("last_measurement"), '%d/%m/%Y %H:%M')
                 temp_date = current.replace(hour=l_measurement.hour, minute=l_measurement.minute, second=0) 
-
+                #Verifica se há 30 dias corridos desde a última medição
                 if(abs((l_measurement- temp_date).days) == 30):
                     list_data_meas = file.read(var.PATH_DATA_MEASURE).get(data_users[i].get("med"))
                     total = 0
@@ -164,9 +164,9 @@ def warning(str_http):
             total_kwh += list_data_meas[i].get("consumption")
         if(d_h >= temp_current and d_h <=current):
             total_kwh_today += list_data_meas[i].get("consumption")
-    
-    if(calculare_average(total_kwh, n) / total_kwh_today * 100 < 20):
-        return "Alerta de alto consumo em relação ao últimos {} dias\nConsumo de hoje: {}kwh.".format(n, total_kwh_today)
+
+    if(total_kwh_today != 0 and calculare_average(total_kwh, n) / total_kwh_today * 100 < 20):
+            return "Alerta de alto consumo em relação ao últimos {} dias\nConsumo de hoje: {}kwh.".format(n, total_kwh_today)
     else:
         return "Não há consumo excessivo registrado."
 
