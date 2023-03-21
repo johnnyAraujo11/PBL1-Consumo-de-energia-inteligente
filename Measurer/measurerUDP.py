@@ -41,7 +41,6 @@ class MeasurerUDP():
 
     def start(self):
         threading.Thread(target=self.time_to_send_message, daemon=True).start()
-        #somente para executar a thread em segundo plano
         while(True):
             device.watt = float(input("O consumo atual é x digite a potência para alterar o consumo: "))
             

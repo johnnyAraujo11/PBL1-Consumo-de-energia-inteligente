@@ -2,6 +2,10 @@ from time import sleep
 import threading
 
 
+'''
+Classe que representa uma residência com o seu consumo em watt.
+'''
+
 class Device():
 
     def __init__(self):
