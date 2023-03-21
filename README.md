@@ -23,7 +23,7 @@ Ambiente de testes do cliente: Insomina
 Para criar o servidor centralizado, onde serão recebido os dados, tanto das requisições do cliente quanto os dados dos dispositivos foi utilizado o socket. o socket permite a comunicação entre processos que executam em máquinas diferentes, funcionado na arquitetura Cliente/servidor.
 
 
-<h2 align="center"><a href="https://www.hostgator.com.br/blog/o-que-e-protocolo-tcp-ip/">TCP/IP</a><h2>
+<h2 align="center"><a href="https://www.hostgator.com.br/blog/o-que-e-protocolo-tcp-ip/">TCP/IP</a></h2>
 
 Foi utilizado o TCP/IP, Transmission Control Protocol(TCP) e IP(IP address) entre a comunição do cliente com o servidor fazendo as requisições e enviando dados e a dos dispositivos. Esses protocolos funcionam em cima de outros protocolos como, por exemplo, o protocolo de transferência de dados, HTTP(Hypertext Transfer Protocol). O TCP/IP possui 4 camadas, no qual foram abstraídas das camadas do modelo OSI que possui 7 camadas, são elas: Aplicação, Transporte, Elance e Rede. 
 Focando na camada de transporte onde é específicado a maneira como enviar os dados por TCP ou UDP  (User Datagram Protocol). No TCP o envio dos dados passar por uma série etapas para garantir que o destinatário receba a mensagem. já no protocolo UDP não necessita estabelecer uma conexão e os dados enviados não são garantidos que chegue ao destino indicado. A vantagem da utilizição do UPD é que ele é mais rápido que o TCP.
@@ -79,3 +79,6 @@ Após executar o código você poderá observar no terminal que o server estará
     ```sh
     measurer.py
     ```
+
+
+<h2>Insomia</2>
