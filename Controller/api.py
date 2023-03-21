@@ -33,8 +33,8 @@ class API():
             return self.create_arq_http("O consumo total entre as datas {} e {} foi de {}".format(_date[0], _date[1], total_cons))
         
         if(router == "/adm/registers"):
-            self.str_http.teste()
-            return self.create_arq_http("Os usuários cadastrados")
+            
+            return self.create_arq_http("Os usuários cadastrados: {}".format(calculate_req.get_clients()))
         
         if(router == "/invoice"):
             return self.create_arq_http(calculate_req.calculate_invoice_partial(self.str_http))
@@ -45,7 +45,7 @@ class API():
     
     
     def response(self):
-        if(self.str_http.check_user_exist() and self.str_http.router !="/register-client" or self.str_http.router != "/adm/registers"):
+        if(self.str_http.check_user_exist() or self.str_http.router !="/register-client" or self.str_http.router != "/adm/registers"):
             return self.all_requests_get(self.str_http.router) if "GET" == self.str_http.method else self.all_request_post(self.str_http.router)
         else:
             return self.create_arq_http("Você não está cadastrado")

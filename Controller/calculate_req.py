@@ -174,3 +174,12 @@ Faz o cálculo da média de n dias
 '''
 def calculare_average(total, n):
     return (total / n) 
+
+'''
+Retorna todos os clientes cadastrados
+'''
+def get_clients():
+    return file.read(var.PATH_USERS)
+    
+
+    
