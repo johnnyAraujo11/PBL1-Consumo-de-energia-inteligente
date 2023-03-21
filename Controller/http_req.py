@@ -1,6 +1,11 @@
 import base64
 import file
+import variables as var
 
+
+'''
+Classe responável por extrair informações da requisição HTTP.
+'''
 class Http_request():
     
     def __init__(self, msg):
@@ -13,7 +18,9 @@ class Http_request():
         self.split_structure()
         self.extract_router()
     
-
+    '''
+    Função que executa quando o objeto é instanciado, extraindo o método HTTP. 
+    '''
     def split_structure(self):
         temp = ''
 
@@ -25,12 +32,15 @@ class Http_request():
             for i in range(temp.find('\n'), len(temp)):
                 self.body = self.body + temp[i]
 
-            self.to_json()
+            #self.to_json()
        
         split_structure = self.structure_http.split("\n")
         self.method = split_structure[0].split(" ")[0]
        
 
+    '''
+    Extraí a data especificada para realizar a filtragem dos dados a serem respondidos.
+    '''
     def get_info_date(self):
         list_date = ['date_i', 'date_f']
         date = []
@@ -43,6 +53,7 @@ class Http_request():
         return date
         
 
+
     def get_str(self, _string, msg):
         temp = ""
         pos = msg.find(_string)
@@ -54,33 +65,44 @@ class Http_request():
                     break
         return temp                
         
-
+    '''
+    Extrai a rota que foi informada.
+    '''
     def extract_router(self):
         self.router = self.structure_http.split()[1]
 
-
+    '''
+    Extrai o login do usuário com a seu usuário e senha criptografados
+    '''
     def extract_user_cript(self):
         temp = self.get_str("Authorization", self.structure_http)
         temp = temp.split(" ")
         self.cript_user = temp[2]
         
-    
+    '''
+    Decodifica o usuário e senha criptografados.
+    '''
     def decode_user(self):
         user = base64.b64decode(self.cript_user).decode('utf-8')
         list_l = user.split(":")
         return list_l
     
-
+    '''
+    Retorna o nome do usuário logado
+    '''
     def get_user_name(self):
         return self.decode_user()[0]
     
-
+    '''
+    Verifica se o usuário existe ou se a lista de usuários está vazia.
+    '''
     def check_user_exist(self):
-        users = file.read("./Database/DB_users.json")
+        users = file.read(var.PATH_USERS)
         data_user = self.decode_user()
         if(users != 0):
             for json_obj in users:
                 return True if json_obj.get("name") == data_user[0] and json_obj.get("password") == data_user[1] else False 
         else:
             return False       
-                
+    
+   

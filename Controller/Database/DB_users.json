@@ -2,11 +2,29 @@
      {
           "name": "joao",
           "password": "1234",
-          "med": "3960"
+          "med": "7024",
+          "last_measurement": "19/02/2023 08:00",
+          "register_moth": [
+               {
+                    "nome": "joao",
+                    "Preco": 1.05,
+                    "ultima leitura": "19/02/2023",
+                    "Leitura autal": "20/03/2023"
+               }
+          ]
      },
      {
           "name": "maria",
           "password": "123b",
-          "med": "9457"
+          "med": "5655",
+          "last_measurement": "19/02/2023 08:00",
+          "register_moth": [
+               {
+                    "nome": "maria",
+                    "Preco": 1.84,
+                    "ultima leitura": "19/02/2023",
+                    "Leitura autal": "20/03/2023"
+               }
+          ]
      }
 ]

@@ -13,7 +13,9 @@ sys.path.insert(0, new)
 #from Database import *
 from http_req import *
 
-
+'''
+Classe API que contém métodos de retorno de requisições do usuário
+'''
 class API():
 
     def __init__(self, msg_http) -> None:
@@ -29,44 +31,27 @@ class API():
             total_cons = calculate_req.consumption(self.str_http)
             _date = self.str_http.get_info_date()
             return self.create_arq_http("O consumo total entre as datas {} e {} foi de {}".format(_date[0], _date[1], total_cons))
-       
-        if(router == "/register-client"):
-            client = self.str_http.decode_user()
-            calculate_req.register_client(client[0], client[1])
-            return self.create_arq_http("Cadastrado com sucesso!")
         
         if(router == "/adm/registers"):
+            self.str_http.teste()
             return self.create_arq_http("Os usuários cadastrados")
         
-        if(router == "/fatura"):
+        if(router == "/invoice"):
+            return self.create_arq_http(calculate_req.calculate_invoice_partial(self.str_http))
+         
+        if(router == "/warning"):
+            return self.create_arq_http(calculate_req.warning(self.str_http))
             
-            return self.create_arq_http("Sua fatura atual é de R$50,00")
-
-        if(router == "/warning/excessive/energy"):
-            return self.create_arq_http("Você tem um alerta de consumo excessivo.")
-        
-        if(router == "/warning/variation/energy"):
-            return self.create_arq_http("Houve uma variação de energia capturado na sua residência.")
-     
-
+    
+    
     def response(self):
         if(self.str_http.check_user_exist() and self.str_http.router !="/register-client" or self.str_http.router != "/adm/registers"):
             return self.all_requests_get(self.str_http.router) if "GET" == self.str_http.method else self.all_request_post(self.str_http.router)
         else:
             return self.create_arq_http("Você não está cadastrado")
 
-    def all_request_post(self, router, content):
-        if(router == "/"):
-            print("")
-
-
-    def openFile():
-        file = open('DB.json',)
-        data = json.load(file)
-        file.close()
-        return data
-
-
-#str_http.get_info_date()
-#str_http.extract_router()
-            
+    def all_request_post(self, router):
+       
+        if(router == "/register-client"):
+            calculate_req.register_client(self.str_http)
+            return self.create_arq_http("Cadastrado com sucesso!")
