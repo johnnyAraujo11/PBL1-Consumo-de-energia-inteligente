@@ -108,6 +108,7 @@ def invoice_moth():
     current = datetime.now()
     previus_day = datetime.strptime(file.read(var.PATH_READING_DAY).get("day_reading"), '%d/%m/%Y %H:%M')
     while(True):
+        print("Esperando para executar...")
         sleep(3600)
         if((current - previus_day).days >= 1): 
             for i in range(len(data_users)):

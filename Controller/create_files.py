@@ -18,3 +18,5 @@ data = {}
 create_files(data,"DB_consumption")
 data = []
 create_files(data,"DB_users")
+data = {}
+create_files(data, "reading_day")
