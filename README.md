@@ -30,7 +30,7 @@ Foi utilizado o TCP/IP, Transmission Control Protocol(TCP) e IP(IP address) entr
 Focando na camada de transporte onde é específicado a maneira como enviar os dados por TCP ou UDP  (User Datagram Protocol). No TCP o envio dos dados passar por uma série etapas para garantir que o destinatário receba a mensagem. já no protocolo UDP não necessita estabelecer uma conexão e os dados enviados não são garantidos que chegue ao destino indicado. A vantagem da utilizição do UPD é que ele é mais rápido que o TCP.
 
 <h2 align="center"><a href="">Thread</h2>
-
+As thread ou linhas de execução basicamente funcionam como subprogramas de um programa em execução. Com as threads é possível executar vários processos com o pseudo paralelismo, onde CPU troca de processo muito rapidamente que aparenta paralelismo. Isso faz com que o programa faça o trabalho mais útil não desperdicando tempo. por exemplo, enquando o servidor executa uma tarefa de processar os dados do cliente há um thread que fica esperando mais conexões de outros cliente. 
 
 <h2 align="center"><a href="https://www.hostinger.com.br/tutoriais/o-que-e-docker">Docker</h2>
 A utilização do docker permite que um sistema computacional execute várias aplicações através de containers diferentes sem precisar previamente instalar dependências direto na máquina. Todas as configurações para executar determinada aplicação pode ser especificada em uma imagem docker que ao rodar uma imagem é criado um container.
@@ -121,4 +121,4 @@ Após isso o medidor estará enviando dados para o servidor.
 <h2>Insomia</h2>
 Para obter as rotas do insomia clique no botão abaixo e importe:
 
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=&uri=https%3A%2F%2Fraw.githubusercontent.com%2FjohnnyAraujo11%2FPBL1-Consumo-de-energia-inteligente%2Fdev%2FInsomnia_2023-03-20.json)
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=&uri=https%3A%2F%2Fraw.githubusercontent.com%2FjohnnyAraujo11%2FPBL1-Consumo-de-energia-inteligente%2Fdev%2Fisomina.json)
