@@ -40,7 +40,7 @@ A utilização do docker permite que um sistema computacional execute várias ap
 
 O sistema foi desenvolvido na linguagem python, onde foram utilizadas apenas as bibliotecas nativa da linguagem. A biblioteca json foi utilizada para amarzenar as informações dos usuário e os dados enviados dos dispositivos.
 
-Foi utilizado o protocolo http para a comunicação entre o cliente(Insomina) e sevidor. Devido esse protocolo HTTP ser baseado em request e response, ou seja, o cliente solicita um informação ou enviar algo através dos métodos GET ou POSTe espera um retorno do sevidor. A conexão entre o dispositivo e o servidor foi utilizada o UPD, onde apenas o dispositivo envia constantemente dados para o servidor e o servidor não responde ao dispositivo.
+Foi utilizado o protocolo http para a comunicação entre o cliente(Insomina) e sevidor. Devido esse protocolo HTTP ser baseado em request e response, ou seja, o cliente solicita um informação ou enviar algo através dos métodos GET ou POSTe espera um retorno do sevidor. A conexão entre o dispositivo e o servidor foi utilizada o UPD, onde apenas o dispositivo envia constantemente dados para o servidor e o servidor não responde ao dispositivo. 
 
 A utilização de threads foi importante para que o sistema pudesse ter várias linhas de execução "ao mesmo tempo". No caso do sistema, há duas conexões diferentes ja mencionadas antes a TCP e UDP cada uma dela é executada em suas devidas thread, podendo receber dados tanto do cliente quanto do servidor.
 
