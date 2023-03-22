@@ -105,15 +105,15 @@ def str_invoice(price, name, t_kwh):
 '''Calcula automaticamente a fatura do mês'''
 def invoice_moth():
     data_users = file.read(var.PATH_USERS)
-    current = datetime.now()
     previus_day = datetime.strptime(file.read(var.PATH_READING_DAY).get("day_reading"), '%d/%m/%Y %H:%M')
     while(True):
+        current = datetime.now()
         print("Esperando para executar...")
-        sleep(3600)
         if((current - previus_day).days >= 1): 
             for i in range(len(data_users)):
                 l_measurement = datetime.strptime(data_users[i].get("last_measurement"), '%d/%m/%Y %H:%M')
                 temp_date = current.replace(hour=l_measurement.hour, minute=l_measurement.minute, second=0) 
+                
                 #Verifica se há 30 dias corridos desde a última medição
                 if(abs((l_measurement- temp_date).days) == 30):
                     list_data_meas = file.read(var.PATH_DATA_MEASURE).get(data_users[i].get("med"))
@@ -124,8 +124,16 @@ def invoice_moth():
                             total += list_data_meas[j].get("consumption")    
                     create_obj_invoice(data_users[i], data_users[i].get("name"), total, l_measurement, temp_date)
                     total = 0
-
-        file.write(data_users, var.PATH_USERS)
+                    file.write(data_users, var.PATH_USERS)
+                    
+                    # Escreve no arquivo a leitura diária
+                    file_day = file.read(var.PATH_READING_DAY)
+                    day = datetime.strptime(file_day.get("day_reading"), '%d/%m/%Y %H:%M')
+                    day = day.replace(day=current.day)
+                    day = day.strftime("%d/%m/%Y %H:%M")
+                    file_day["day_reading"] = day
+                    file.write(file_day, var.PATH_READING_DAY)
+        sleep(3600)
 
 '''Cria um obj no formato json e adicionar as informações da fatura ao cliente.'''
 def create_obj_invoice(data_users, name, total, data_l_measurement, date_final):

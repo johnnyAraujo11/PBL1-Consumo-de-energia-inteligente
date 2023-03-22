@@ -5,10 +5,7 @@ import http_req
 import calculate_req
 from datetime import datetime
 
-dir_abs = os.path.dirname(os.path.realpath(__file__))
-new = dir_abs[:-5]
-new = new + "Controller"
-sys.path.insert(0, new)
+
 
 #from Database import *
 from http_req import *
