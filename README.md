@@ -1,4 +1,5 @@
-
+UEFS - Feira de Santana Bahia
+Disciplina: MI - Redes de Computadores
 
 <h1 align="center">PBL-Consumo-de-energia-inteligente</h1>
 Com o objetivo de automatizar o processo de obteção de energia elétrica de casa e proatividade de reparos nos medidores, bem como a concientização dos usuários sobre o consumo de energia foi pensado em um dispositivo que monitora o uso de energia elétrica das casas.
@@ -31,14 +32,25 @@ Focando na camada de transporte onde é específicado a maneira como enviar os d
 <h2 align="center"><a href="">Thread</h2>
 
 
-<h2 align="center"><a href="">Docker</h2>
+<h2 align="center"><a href="https://www.hostinger.com.br/tutoriais/o-que-e-docker">Docker</h2>
+A utilização do docker permite que um sistema computacional execute várias aplicações através de containers diferentes sem precisar previamente instalar dependências direto na máquina. Todas as configurações para executar determinada aplicação pode ser especificada em uma imagem docker que ao rodar uma imagem é criado um container.
 
 
 <h2>Desenvolvimento</h2>
 
-Foi utilizado o protocolo http para a comunicação entre o cliente(Insomina) e o servidor e UDP entre o dispositivo e o servidor.
-No código descrito foram utilizadas de threads para que o programa contínue a esperar requisições de usuários e dispositivos.
+O sistema foi desenvolvido na linguagem python, onde foram utilizadas apenas as bibliotecas nativa da linguagem. A biblioteca json foi utilizada para amarzenar as informações dos usuário e os dados enviados dos dispositivos.
 
+Foi utilizado o protocolo http para a comunicação entre o cliente(Insomina) e sevidor. Devido esse protocolo HTTP ser baseado em request e response, ou seja, o cliente solicita um informação ou enviar algo através dos métodos GET ou POSTe espera um retorno do sevidor. A conexão entre o dispositivo e o servidor foi utilizada o UPD, onde apenas o dispositivo envia constantemente dados para o servidor e o servidor não responde ao dispositivo.
+
+A utilização de threads foi importante para que o sistema pudesse ter várias linhas de execução "ao mesmo tempo". No caso do sistema, há duas conexões diferentes ja mencionadas antes a TCP e UDP cada uma dela é executada em suas devidas thread, podendo receber dados tanto do cliente quanto do servidor.
+
+No sistema foram definidas as seguinte rotas: 
+    - /consumption: o usuário solicita passando um intervalo de datas e horas para saber o consumo dentro desse tempo;
+    - adm/registers: uma forma de exibir os dados do cliente;
+    -  /invoice: Caclula a fatura parcial do usuário desde a última fatura;
+    - /warning: informa ao usuário se tem um consumo execessivo de energia elétrica.
+
+A aplicação foi executada em containers docker, onde o servidor executa em um container e os dispositivos executam em um outros containers separados.
 
 <h3>Instruções:</h3>
 
@@ -80,7 +92,32 @@ Após executar o código você poderá observar no terminal que o server estará
     measurer.py
     ```
 
+<h3>Intruções docker</h3>
 
-<h2>Insomia</2>
+1. Crie um arquivo com nome Dockerfile dentro da pasta Controller;
+2. Copie dentro do arquivo dockerfile:
+    ```sh
+    FROM python:3.11-slim-buster
+    WORKDIR /app
+    COPY . .
+    CMD ["python3", "./main.py"]
+    ```
+3. Caminhe até dentro do diretório Controller execute para criar a imagem:
+    ```sh   
+    docker build -t nomedasuaimagem .
+    ```
+4. Executar um container com a imagem criada: 
+    listar todas as imagem: 
+    ```sh   
+    docker images
+    ```
+    ```sh
+    docker run -it network=host nomedasuaimagem
+    ```
 
+Para executar um dispositivo dentro do docker o passo 1 precisa ser o diretório Measurer os passos 2,3,4 são iguais.
+Após isso o medidor estará enviando dados para o servidor. 
+
+<h2>Insomia</h2>
+Para obter as rotas do insomia clique no botão abaixo e importe:
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Teste%20API&uri=https%3A%2F%2Fraw.githubusercontent.com%2FjohnnyAraujo11%2FPBL1-Consumo-de-energia-inteligente%2Fdev%2FInsomnia_2023-03-20.json)
