@@ -4,7 +4,7 @@ import socket
 import device
 import json
 from datetime import time, datetime
-
+import random as rd
 
 
 class MeasurerUDP():
@@ -31,24 +31,35 @@ class MeasurerUDP():
 
     def time_to_send_message(self):
         while(True):
-            sleep(5)
+            sleep(self.time)
             print("sending...")
+            print(device.get_watt())
             self.send_message()
 
 
     def start(self):
         threading.Thread(target=self.time_to_send_message).start()
+        #threading.Thread(target=self.generate_watt).start()
         print("Medidor: {}".format(self.num_measurer))
-         #  while(True):
-       #     device.watt = float(input("O consumo atual é x digite a potência para alterar o consumo: "))
+        while(True):
+            device.watt = float(input("Digite a potência wm watt para alterar o consumo: "))
             
-    
+    '''
+    Realiza o cálculo do consumo em kwh e retorna esse valor.
+    '''
     def consumption(self):
         return round((self.time / 3600) * device.watt, 2)
 
+    '''
+    Gera uma potência aleatória 
+    '''
+    def generate_watt(self):
+        while(True):
+            device.set_watt(rd.randint(0,2000))
+        
 
 device = device.Device()
-measurer = MeasurerUDP("5655", device)
+measurer = MeasurerUDP("7024", device)
 measurer.start()
 
  

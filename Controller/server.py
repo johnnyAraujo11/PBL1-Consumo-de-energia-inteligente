@@ -32,6 +32,7 @@ class Server:
         except:
             print("Fail when starting the server")
 
+
     '''
     Função que aguarda os medidores enviarem dados e salva em um arquivo json.
     '''
@@ -44,6 +45,7 @@ class Server:
             print(clientMsg)
             msg_measurer.save_json(message.decode())
             
+            
     '''
     Função que aguarda a conexão de clientes.
     '''
@@ -53,6 +55,7 @@ class Server:
                 client, address = self.con_socket.accept()
                 client_thread = threading.Thread(target=self.handle_client_TCP, args=(client, address), daemon=True)
                 client_thread.start()
+                
                 
     '''
     Recebe clientes e suas respectivas mensagens http
