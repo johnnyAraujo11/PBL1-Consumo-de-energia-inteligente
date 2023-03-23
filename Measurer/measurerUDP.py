@@ -9,14 +9,14 @@ from datetime import time, datetime
 
 class MeasurerUDP():
 
-    def __init__(self, num_measurer, device, host='localhost', port=5000) -> None:
+    def __init__(self, num_measurer, device, host='172.16.103.207', port=52526) -> None:
         self.port = port
         self.host = host
         self.UDP_client = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
         self.buffer_size = 1024
         self.num_measurer = num_measurer
         self.device = device
-        self.time = 0.0
+        self.time = 5
 
 
     def send_message(self):
@@ -30,28 +30,25 @@ class MeasurerUDP():
 
 
     def time_to_send_message(self):
-    
         while(True):
-            sleep(1)
-            self.time += 1
-            if(self.time == 5):
-                self.send_message()
-                self.time = 0
+            sleep(5)
+            print("sending...")
+            self.send_message()
 
 
     def start(self):
-        threading.Thread(target=self.time_to_send_message, daemon=True).start()
-        while(True):
-            device.watt = float(input("O consumo atual é x digite a potência para alterar o consumo: "))
+        threading.Thread(target=self.time_to_send_message).start()
+        print("Medidor: {}".format(self.num_measurer))
+         #  while(True):
+       #     device.watt = float(input("O consumo atual é x digite a potência para alterar o consumo: "))
             
     
     def consumption(self):
         return round((self.time / 3600) * device.watt, 2)
 
 
-
 device = device.Device()
-measurer = MeasurerUDP("9457", device)
+measurer = MeasurerUDP("5655", device)
 measurer.start()
 
  

@@ -3,11 +3,11 @@ import threading
 import http_req 
 import api
 import msg_measurer
-
+ 
 
 class Server:
     
-    def __init__(self, host='localhost', port_TCP=7123, port_UDP=5000):
+    def __init__(self, host='172.16.103.207', port_TCP=52525, port_UDP=52526):
         self.host = host
         self.port_TCP = port_TCP
         self.port_UDP = port_UDP
