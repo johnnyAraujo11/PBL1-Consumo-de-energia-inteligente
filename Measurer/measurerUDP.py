@@ -18,22 +18,25 @@ class MeasurerUDP():
         self.device = device
         self.time = 5
 
-
+    '''
+    Montagem da mensagem para ser enviada
+    '''
     def send_message(self):
         _date = datetime.now()
 
-        msg = {"id":self.num_measurer, "consumption":  self.consumption(), "date_hour": _date.strftime("%d/%m/%Y %H:%M")}
+        msg = {"id":self.num_measurer, "consumption":  device.get_watt(), "date_hour": _date.strftime("%d/%m/%Y %H:%M")}
         json_msg = json.dumps(msg)
         
         msg_bytes = str.encode(json_msg)
         self.UDP_client.sendto(msg_bytes, (self.host, self.port))
 
-
+    '''
+    Envia a mensagem a cada 5 segundos
+    '''
     def time_to_send_message(self):
         while(True):
             sleep(self.time)
-            print("sending...")
-            print(device.get_watt())
+            #print("sending: {}".format(device.get_watt()))
             self.send_message()
 
 
@@ -42,13 +45,8 @@ class MeasurerUDP():
         #threading.Thread(target=self.generate_watt).start()
         print("Medidor: {}".format(self.num_measurer))
         while(True):
-            device.watt = float(input("Digite a potência wm watt para alterar o consumo: "))
+            device.watt = float(input("Digite a potência em watt para alterar o consumo, aumentando ou diminuindo: "))
             
-    '''
-    Realiza o cálculo do consumo em kwh e retorna esse valor.
-    '''
-    def consumption(self):
-        return round((self.time / 3600) * device.watt, 2)
 
     '''
     Gera uma potência aleatória 

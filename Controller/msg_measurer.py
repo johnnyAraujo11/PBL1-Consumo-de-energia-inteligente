@@ -8,7 +8,8 @@ Salva os dados que chegam do medido em um arquivo json
 def save_json(msg):
     msg = json.loads(msg)
     num_measurer = msg.get("id")
-
+    watt = msg.get("consumption")   
+    msg["consumption"] = consumption(watt)
     data = file.read(var.PATH_DATA_MEASURE)
     
     if(is_exit(num_measurer, data)):
@@ -27,3 +28,6 @@ def is_exit(num_meas, data):
         return True
 
 
+def consumption( watt):
+        return round((5 / 3600) * watt, 5)
+    

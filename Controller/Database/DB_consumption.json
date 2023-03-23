@@ -11,6 +11,22 @@
           {
                "consumption": 0.17,
                "date_hour": "16/03/2023 22:29"
+          },
+          {
+               "consumption": 1000.0,
+               "date_hour": "23/03/2023 15:06"
+          },
+          {
+               "consumption": 1000.0,
+               "date_hour": "23/03/2023 15:06"
+          },
+          {
+               "consumption": 1000.0,
+               "date_hour": "23/03/2023 15:06"
+          },
+          {
+               "consumption": 1.38889,
+               "date_hour": "23/03/2023 15:07"
           }
      ],
      "5655": [
