@@ -2,7 +2,7 @@ UEFS - Feira de Santana Bahia</br>
 Disciplina: MI - Redes de Computadores
 
 <h1 align="center">PBL-Consumo-de-energia-inteligente</h1>
-Com o objetivo de automatizar o processo de obteção de energia elétrica de casa e proatividade de reparos nos medidores, bem como a concientização dos usuários sobre o consumo de energia foi pensado em um dispositivo que monitora o uso de energia elétrica das casas.
+Com o objetivo de automatizar o processo de obteção de consumo de energia elétrica de casa e proatividade de reparos nos medidores, bem como a concientização dos usuários sobre o consumo de energia foi pensado em um dispositivo que monitora o uso de energia elétrica das casas.
 Esse dispositivo envia dados constantimente para o servidor da concessionária armazenando os dados referentes a cada dispositivo. Nesse contexto o clientes podem acessar os dados dos consumo especificando um intervalo de dadas e horas desejáveis, receber alertas de variação de consumo ou consumo execessivo de energia elétrica.
 
 <h2>Restrições:</h2>
